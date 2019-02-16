@@ -4,7 +4,7 @@ import sys
 
 
 class Tokenizer:
-
+    #test
     # the init takes care of making an empty dict, opens the text file, and calls the function to tokenize such file
     def __init__(self, text_file):
         self._tokens = collections.defaultdict(int)
