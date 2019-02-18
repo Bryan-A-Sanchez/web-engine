@@ -15,13 +15,14 @@ try:
     p = pathlib.WindowsPath('.')  # gives me all the files in the current dir
     # p = [x for x in p.iterdir() if x.is_dir()][2]  # goes to the 'webpages' directory
     p = pathlib.WindowsPath('WEBPAGES_RAW')
-    url_dict_links = [x for x in p.iterdir() if not x.is_dir()][0]
+    # url_dict_links = [x for x in p.iterdir() if not x.is_dir()][0]
+    url_dict_links = pathlib.WindowsPath('WEBPAGES_RAW/bookkeeping.json')
     p = [x for x in p.iterdir() if x.is_dir()]  # gets all the folders contained in the webpages dir
 except NotImplementedError:
     p = pathlib.PosixPath('.')  # gives me all the files in the current dir
     # p = [x for x in p.iterdir() if x.is_dir()][2]  # goes to the 'webpages' directory
     p = pathlib.PosixPath('WEBPAGES_RAW')
-    url_dict_links = [x for x in p.iterdir() if not x.is_dir()][0]
+    url_dict_links = pathlib.PosixPath('WEBPAGES_RAW/bookkeeping.json')
     p = [x for x in p.iterdir() if x.is_dir()]  # gets all the folders contained in the webpages dir
 
 
