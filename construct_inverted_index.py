@@ -70,7 +70,8 @@ for sub_file in p:  # for every file in the web pages folder
 
             for x in current_file_dict:
                 practice_indexer[x].append((current_file_dict[x],
-                                            url_dict[str(file).lstrip('WEBPAGES_RAW\\').replace('\\', '/')]))
+                                            url_dict[str(file).lstrip('WEBPAGES_RAW\\').replace('\\', '/')
+                                            .lstrip('/')]))
         # temp.close()
 
 print('\n', len(practice_indexer))
