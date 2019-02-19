@@ -1,18 +1,34 @@
 from index_loader_saver import save_index, load_index
 from TokenizerModule import Tokenizer
-import sys
+from pathlib import Path
+
+
 
 
 if __name__ == '__main__':
-    web_index = load_index()
 
-    print('size:', sys.getsizeof(web_index))
+    # count = 0
+    # count_doc = 0
+    #
+    # web_index = load_index()
+    #
+    # print('size of index:', Path('inverted_index').stat().st_size/1000)
+    #
+    # for x in web_index:
+    #     count += 1
+    #     count_doc += len(web_index[x])
+    #
+    # print('count',count)
+    # print('number of documents: ', count_doc)
+
+    web_index = load_index()
 
     word = input('ASK ME ANYTHING! ONLY ONE WORD PLEASE! or type #quit to leave\n')
 
     while word != '#quit':
         try:
-            print('There are this many results for that word:', web_index[word.lower()])
+             for x in web_index[word.lower()][0:9]:
+                 print(x[1])
         except KeyError:
             print('That word does not exist within the system.')
         word = input('ASK ME ANYTHING! ONLY ONE WORD PLEASE! or type #quit to leave\n')
