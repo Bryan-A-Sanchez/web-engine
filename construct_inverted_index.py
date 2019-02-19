@@ -1,15 +1,14 @@
 from index_loader_saver import save_index
-from pathlib import Path
 import pathlib
 from TokenizerModule import Tokenizer
-from html.parser import HTMLParser
 from lxml import html
 import json
 from collections import defaultdict
+from ranker import tf, idf
 
 import datetime
-currentDT = datetime.datetime.now()
-print('time start:', str(currentDT))
+currentDT1 = datetime.datetime.now()
+
 
 try:
     p = pathlib.WindowsPath('.')  # gives me all the files in the current dir
@@ -37,7 +36,7 @@ url_dict = json.loads(url_dict)
 for sub_file in p:  # for every file in the web pages folder
 
     for file in sub_file.iterdir():  # go in that file and iterate through the files
-        print(file)
+        #print(file)
 
         with open(file, 'r', encoding='utf-8') as temp:
             # temp_readline = str(temp.readlines())
@@ -60,26 +59,48 @@ for sub_file in p:  # for every file in the web pages folder
             strings.extend(tree.xpath('//b'))
             strings.extend(tree.xpath('//strong'))
             strings.extend(tree.xpath('//p'))
+            strings.extend(tree.xpath('//a'))
+            strings.extend(tree.xpath('//address'))
 
-            # tokenizer_object = Tokenizer(' '.join([string.text for string in strings
-            #                                        if string.text is not None]))
             tokenizer_object = Tokenizer(' '.join([string.text for string in strings
                                                    if string.text is not None]))
 
             current_file_dict = tokenizer_object.give_dict()
 
+            doc_total = tokenizer_object.give_total_terms()
+
             for x in current_file_dict:
+                term_freq = current_file_dict[x]
+
+                current_tf = tf(term_freq, doc_total)
+                total_num_of_corpus = 37497
+                #  word_num_files = len(current_file_dict[x])
+
+                #current_idf = idf(total_num_of_corpus, word_num_files)
+
                 practice_indexer[x].append((current_file_dict[x],
-                                            url_dict[str(file).lstrip('WEBPAGES_RAW\\').replace('\\', '/')
-                                            .lstrip('/')]))
-        # temp.close()
+                                            url_dict[str(file).lstrip('WEBPAGES_RAW\\').replace('\\', '/').lstrip('/')],
+                                            term_freq, doc_total, total_num_of_corpus))
+
+practice_indexer2 = defaultdict(list)
+for word in practice_indexer:
+    for item in practice_indexer[word]:
+        practice_indexer2[word].append((tf(item[2], item[3])*idf(item[4], len(practice_indexer[word]))
+                                  ,item[2]
+                                  , item[1]))
+
+    practice_indexer2[word] = sorted(practice_indexer2[word], key=lambda x: -x[0])
+
+
 
 print('\n', len(practice_indexer))
 
-save_index(practice_indexer)
+#save_index(practice_indexer)
+save_index(practice_indexer2)
 
 
 if __name__ == "__main__":
     # file.print_tokens()
     currentDT = datetime.datetime.now()
+    print('time start:', str(currentDT1))
     print('time finish:', str(currentDT))

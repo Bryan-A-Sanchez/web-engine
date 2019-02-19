@@ -7,19 +7,19 @@ from pathlib import Path
 
 if __name__ == '__main__':
 
-    # count = 0
-    # count_doc = 0
-    #
-    # web_index = load_index()
-    #
-    # print('size of index:', Path('inverted_index').stat().st_size/1000)
-    #
-    # for x in web_index:
-    #     count += 1
-    #     count_doc += len(web_index[x])
-    #
-    # print('count',count)
-    # print('number of documents: ', count_doc)
+    count = 0
+    count_doc = 0
+
+    web_index = load_index()
+
+    print('size of index:', Path('inverted_index').stat().st_size/1000)
+
+    for x in web_index:
+        count += 1
+        count_doc += len(web_index[x])
+
+    print('count',count)
+    print('number of documents: ', count_doc)
 
     web_index = load_index()
 
@@ -27,8 +27,9 @@ if __name__ == '__main__':
 
     while word != '#quit':
         try:
-             for x in web_index[word.lower()][0:9]:
-                 print(x[1])
+             for num, x in enumerate(web_index[word.lower()][0:20], 1):
+                 print(x[2])
+            #print(web_index[word.lower()])
         except KeyError:
             print('That word does not exist within the system.')
         word = input('ASK ME ANYTHING! ONLY ONE WORD PLEASE! or type #quit to leave\n')
