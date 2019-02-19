@@ -19,3 +19,5 @@ def load_index():
     file_object = open(file_name, 'rb')
 
     return pickle.load(file_object)
+
+

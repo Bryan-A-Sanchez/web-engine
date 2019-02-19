@@ -4,12 +4,14 @@ import sys
 
 
 class Tokenizer:
-    #test
+
     # the init takes care of making an empty dict, opens the text file, and calls the function to tokenize such file
     def __init__(self, text_file):
         self._tokens = collections.defaultdict(int)
         self._text_file = text_file
+        self._total_words_in_file = 0
         self._create_tokens()
+
 
 
     # tokenizes using an re expression
@@ -22,6 +24,7 @@ class Tokenizer:
 
                 if token != '':
                     self._tokens[token.lower()] += 1
+                    self._total_words_in_file += 1
 
 
 
@@ -63,6 +66,9 @@ class Tokenizer:
 
     def give_dict(self):
         return self._tokens
+
+    def give_total_terms(self):
+        return self._total_words_in_file
 
 
 
