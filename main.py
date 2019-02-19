@@ -28,8 +28,9 @@ if __name__ == '__main__':
     while word != '#quit':
         try:
              for num, x in enumerate(web_index[word.lower()][0:20], 1):
-                 print(x[2])
-            #print(web_index[word.lower()])
+
+                 print(num, x[2])
+
         except KeyError:
             print('That word does not exist within the system.')
         word = input('ASK ME ANYTHING! ONLY ONE WORD PLEASE! or type #quit to leave\n')
