@@ -28,8 +28,8 @@ if __name__ == '__main__':
     while word != '#quit':
         try:
              for num, x in enumerate(web_index[word.lower()][0:20], 1):
-
                  print(num, x[2])
+             print(f'Total number of pages for {word}', len(web_index[word.lower()]))
 
         except KeyError:
             print('That word does not exist within the system.')
