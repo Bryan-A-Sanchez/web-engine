@@ -29,7 +29,6 @@ with open(url_dict_links, 'r') as file:
 
 url_dict = json.loads(url_dict)
 
-
 for sub_file in p:  # for every file in the web pages folder
 
     for file in sub_file.iterdir():  # go in that file and iterate through the files
@@ -65,12 +64,13 @@ for sub_file in p:  # for every file in the web pages folder
             for x in current_file_dict:
                 term_freq = current_file_dict[x]
 
-                current_tf = tf(term_freq, doc_total)
+                # current_tf = tf(term_freq, doc_total)
                 total_num_of_corpus = 37497
 
                 initial_inverted_index[x].append((current_file_dict[x],
                                                   url_dict[str(file).lstrip('WEBPAGES_RAW\\').replace('\\', '/').lstrip('/')],
                                                   term_freq, doc_total, total_num_of_corpus))
+
 
 inverted_index = defaultdict(list)
 
